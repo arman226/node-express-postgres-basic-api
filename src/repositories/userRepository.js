@@ -41,12 +41,25 @@ const updateUser= async(userId, userName)=>{
     }
 }
 
+const deleteUser= async(userId)=>{
+    try{
+        //hard deletion is for demonstration purposes only
+        const removedUser= await pool.query("DELETE FROM usertbl WHERE user_Id= $1", [userId])
+        return removedUser.rowCount
+
+    }
+    catch(err){
+        return err.message
+    }
+}
+
 
 module.exports= {
     getAllUsers,
     getUser,
     createUser,
-    updateUser
+    updateUser,
+    deleteUser
 }
 
 
