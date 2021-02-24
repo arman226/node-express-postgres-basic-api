@@ -1,8 +1,8 @@
-
+require('dotenv').config();
 const express= require("express");
 const userRoute =require("./routes/users")
 const app = express();
-const PORT= 3000
+const PORT= process.env.PORT
 app.use(express.json())// => req.body
 
 app.use("/api/user", userRoute)
