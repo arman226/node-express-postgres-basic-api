@@ -1,4 +1,4 @@
-const {getAllUsers,getUser} = require('../repositories/userRepository')
+const {getAllUsers,getUser, updateUser} = require('../repositories/userRepository')
  
 const fetchAllUsers=async(req, res)=>{
     try{
@@ -25,15 +25,28 @@ const fetchUser = async(req, res)=>{
     try{
         const {userName} = req.body
         const newUser = await userRepository.createUser(userName)
-        res.json(newUser)
+        res.status(200).json(newUser)
     }
     catch(err){
-        res.json(err.message);
+        res.status(200).json(err.message);
+    }
+}
+
+const alterUser = async(req, res)=>{
+    try{
+        const {userName} = req.body
+        const {id} = req.params
+        const updatedUser= await updateUser(id, userName)
+        res.status(200).json(updatedUser)
+    }
+    catch(err){
+        res.status(500).json(err.message)
     }
 }
 
 module.exports={
     fetchAllUsers,
     fetchUser,
-    addUser
+    addUser,
+    alterUser
 }

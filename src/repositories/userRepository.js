@@ -24,7 +24,17 @@ const getUser= async (userId)=>{
 const createUser =async(userName)=>{
     try{
         const newUser = await pool.query('INSERT INTO usertbl (userName) VALUES ($1) RETURNING *', [userName])
-        return newUser.rows
+        return newUser.rowCount
+    }
+    catch(err){
+        return err
+    }
+}
+
+const updateUser= async(userId, userName)=>{
+    try{
+        const updatedUser = await pool.query("UPDATE usertbl SET userName = $1 WHERE user_Id= $2",[userName, userId])
+        return updatedUser.rowCount
     }
     catch(err){
         return err
@@ -32,9 +42,11 @@ const createUser =async(userName)=>{
 }
 
 
-
-module.exports.getAllUsers = getAllUsers;
-module.exports.createUser = createUser;
-module.exports.getUser = getUser;
+module.exports= {
+    getAllUsers,
+    getUser,
+    createUser,
+    updateUser
+}
 
 

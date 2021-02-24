@@ -1,5 +1,5 @@
 const express = require("express");
-const {fetchAllUsers, fetchUser, addUser} = require('../services/userServices')
+const {fetchAllUsers, fetchUser, addUser, alterUser} = require('../services/userServices')
 const router = express.Router();
 
 //get all users
@@ -12,7 +12,8 @@ router.get("/user/:id",fetchUser)
 router.post("/user", addUser)
 
 //update a user
+router.put("/user/:id", alterUser )
 
 //delete a user
 
-module.exports =router
+module.exports=router
